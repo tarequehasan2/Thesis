@@ -1,0 +1,123 @@
+stringescapes {}
+//vowels
+stringdef a    hex '0985'			//অ
+stringdef aa    hex '0986'			//আ
+stringdef i    hex '0987'			//ই
+stringdef ii    hex '0988'			//ঈ
+stringdef u    hex '0989'
+stringdef uu    hex '098A'
+stringdef e   hex '098E'
+stringdef ai    hex '098AF'
+stringdef o    hex '0993'
+stringdef au   hex '0994'
+
+//dependent vowel sign
+stringdef akar   hex '09BE'
+stringdef rikar    hex '09BF'
+stringdef dikar    hex '09C0'
+stringdef rukar   hex '09C1'
+stringdef dukar   hex '09C2'
+stringdef ekar    hex '09C7'
+stringdef oikar    hex '09C8'
+stringdef okar   hex '09CB'
+stringdef oukar   hex '09CC'
+
+
+//consonants
+stringdef ka    hex '0995'
+stringdef kha    hex '0996'
+stringdef ga    hex '0997'
+stringdef gha    hex '0998'
+stringdef nga    hex '0999'
+stringdef ca    hex '099A'
+stringdef cha   hex '099B'
+stringdef ja    hex '099C'
+stringdef jha    hex '099D'
+stringdef nya   hex '099E'
+stringdef tta    hex '099F'
+stringdef ttha    hex '09A0'
+stringdef dda    hex '09A1'
+stringdef ddha    hex '09A2'
+stringdef nna    hex '09A3'
+stringdef ta    hex '09A4'
+stringdef tha    hex '09A5'
+stringdef da    hex '09A6'
+stringdef dha    hex '09A7'
+stringdef na    hex '09A8'
+stringdef pa    hex '09AA'
+stringdef pha   hex '09AB'
+stringdef ba   hex '09AC'
+stringdef bha   hex '09AD'
+stringdef ma   hex '09AE'
+stringdef ya hex '09AF'
+stringdef ra    hex '09B0'
+stringdef la    hex '09B2'
+stringdef sha    hex '09B6'
+stringdef ssa   hex '09B7'
+stringdef sa   hex '09B8'
+stringdef ha   hex '09B9'
+stringdef rra   hex '09DC'
+stringdef rha   hex '09DD'
+stringdef yya   hex '09DF'
+
+routines ( remove
+			replace1
+			replace2
+)
+
+externals ( stem )
+/*
+backwordmode (
+	define remove as (
+		[substring] among(
+			'{ekar}{la}' (<-'')
+		    '{i}' (<- '')
+		    '{o}'(<- '')
+		    '{okar}{ta}'  (<- '')
+			'{ka}' (<-'')
+			'{a}{ekar}{na}{ka}' (<- '')
+			//'{ekar}' (<- '')
+
+		)
+
+	)
+)
+*/
+
+define remove as (
+		[substring] among(
+			'{ekar}{la}' (<-'')
+		    '{i}' (<- '')
+		    '{o}'(<- '')
+		    '{okar}{ta}'  (<- '')
+			//'{ka}' (<-'')
+			'{a}{na}{ekar}{ka}' (<- '{a}{na}{rikar}{ka}')
+			//'{ekar}' (<- '')
+			'{la}{ekar}{ma}' (<- '')
+			'{pa}{oukar}{ssa}' (<- '{pa}{sa}')
+			//'' (<-'{ta}{akar}{ha}{sa}{rikar}{na}')
+
+		)
+
+	)
+
+define replace1 as (
+	[substring] among(
+        '{ra}{cha}' (<- '{ra}')
+        '{ra}{ba}'(<- '{ba}{ga}')
+		//'{a}'(<-'{ka}')
+    )
+)
+
+
+define replace2 as (
+
+)
+
+define stem as (
+	//backwords (
+	do remove
+	
+	do replace1
+	do replace2
+)
